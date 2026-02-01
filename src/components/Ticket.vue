@@ -235,9 +235,9 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   drawCustomText(ctx, props.ticketInfo.passengerName, leftOffset + idWidth + 10 - 48, 370)
 
   // 虚线框
-  const dashWidth = 500
+  const dashWidth = 490
   const dashHeight = 74
-  const dashLeft = 88
+  const dashLeft = 90
   ctx.font = ' 28px SimSun'
   ctx.setLineDash([13.3, 4.4])
   ctx.strokeRect(dashLeft, 384, dashWidth, dashHeight)
@@ -251,7 +251,7 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
 
   // 二维码，真实车票二维码使用AES加密
   const qrCodeText = props.ticketInfo.qrCodeId
-  const qrCodeWidth = 185
+  const qrCodeWidth = 180
   const qrCodeOptions = {
     width: qrCodeWidth,
     errorCorrectionLevel: 'H',
@@ -267,7 +267,7 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
     const qrImage = new Image()
     qrImage.src = url
     qrImage.onload = () => {
-      ctx.drawImage(qrImage, dashLeft + dashWidth + 44, 303, qrCodeWidth, qrCodeWidth)
+      ctx.drawImage(qrImage, dashLeft + dashWidth + 44, 310, qrCodeWidth, qrCodeWidth)
     }
   })
 
@@ -302,13 +302,19 @@ const drawTicketBack = () => {
 
   ctx.font = '25px SimSun'
   const paragraph =
-    '☆请妥善保管车票。☆请凭车票和本人有效身份证件原件乘车，如改签、变更到站或退票请提前办理。☆正在开发中，敬请期待！'
+    '☆正在开发中，敬请期待！'
 
   const paragraphs = paragraph
     .split('☆')
     .filter((p) => p !== '')
     .map((p) => '☆' + p)
   drawParagraph(ctx, paragraphs, 40, 45, 140, 35, canvasWidth - 90, -1, color)
+
+  // 黑框
+  const dashWidth = 876
+  const dashHeight = 32
+  ctx.fillStyle = '#000000'
+  ctx.fillRect(0, 462, dashWidth, dashHeight)
 }
 
 onMounted(() => {

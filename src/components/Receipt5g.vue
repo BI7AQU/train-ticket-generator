@@ -338,7 +338,7 @@ const drawTicketBack = () => {
 
   ctx.font = '25px SimSun'
   const paragraph =
-    '☆请妥善保管车票。☆请凭车票和本人有效身份证件原件乘车，如改签、变更到站或退票请提前办理。☆正在开发中，敬请期待！'
+    '☆正在开发中，敬请期待！'
 
   const paragraphs = paragraph
     .split('☆')

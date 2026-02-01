@@ -21,11 +21,12 @@ const tabs = ref([
 const activeTab = ref('')
 
 const fieldInfo = ref<FieldInfoData>({
-  id: { label: '火车票 ID', type: 'text', colSpan: 2, onlyEnglishAndNumber: true, maxLength: 21 },
-  redId: { label: '红色 ID', type: 'text', colSpan: 2, onlyEnglishAndNumber: true, maxLength: 11 },
-  ticketOffice: { label: '售票点', type: 'text', colSpan: 1, onlyChinese: true },
+  redId: { label: '上票号', type: 'text', colSpan: 2, onlyEnglishAndNumber: true, maxLength: 11 },
+  id: { label: '下票号', type: 'text', colSpan: 2, onlyEnglishAndNumber: true, maxLength: 21 },
   startStation: { label: '出发地', type: 'text', colSpan: 1, maxLength: 5, onlyChinese: true },
   endStation: { label: '目的地', type: 'text', colSpan: 1, maxLength: 5, onlyChinese: true },
+  checkGate: { label: '检票口', type: 'text', colSpan: 1, maxLength: 12 },
+  ticketOffice: { label: '售票点', type: 'text', colSpan: 1, onlyChinese: true },
   trainNumber: {
     label: '车次',
     type: 'text',
@@ -33,10 +34,9 @@ const fieldInfo = ref<FieldInfoData>({
     maxLength: 6,
     onlyEnglishAndNumber: true,
   },
+  price: { label: '价格', type: 'float', colSpan: 1, maxValue: 50000 },
   date: { label: '日期', type: 'date', colSpan: 1 },
   time: { label: '时间', type: 'time', colSpan: 1 },
-  price: { label: '价格', type: 'float', colSpan: 1, maxValue: 50000 },
-  seatType: { label: '席别', type: 'text', colSpan: 1, maxLength: 5, onlyChinese: true },
   seatCarriage: { label: '车厢号', type: 'number', colSpan: 1, maxValue: 99 },
   seatNumber: {
     label: '座位号',
@@ -45,34 +45,33 @@ const fieldInfo = ref<FieldInfoData>({
     maxLength: 3,
     onlyEnglishAndNumber: true,
   },
-  passengerName: { label: '乘客姓名', type: 'text', colSpan: 1, maxLength: 12, onlyChinese: true },
+  passengerName: { label: '姓名', type: 'text', colSpan: 1, maxLength: 12, onlyChinese: true },
   passengerId: { label: '身份证号', type: 'text', colSpan: 1, maxLength: 18 },
-
-  checkGate: { label: '检票口', type: 'text', colSpan: 1, maxLength: 12 },
-
+  seatType: { label: '席别', type: 'text', colSpan: 1, maxLength: 5, onlyChinese: true },
   qrCodeId: { label: '二维码内容', type: 'text', colSpan: 1, maxLength: 144 },
-
+  isChild: { label: '儿童票', type: 'checkbox', colSpan: 1 },
   isStudent: { label: '学生票', type: 'checkbox', colSpan: 1 },
   isDiscount: { label: '优惠票', type: 'checkbox', colSpan: 1 },
 })
 
 const ticketInfo = ref<TicketData>({
-  id: '21077000060721X073561',
   redId: '01X073561',
+  id: '21077000060721X073561',
+  checkGate: '1',
   ticketOffice: '武昌',
   startStation: '东方红',
   endStation: '卫星',
   trainNumber: '6224',
+  price: 11.5,
   date: '2025-07-23',
   time: '06:50',
-  price: 11.5,
-  seatType: '新空调硬座',
   seatCarriage: '01',
   seatNumber: '058',
   passengerName: '冷藏箱',
   passengerId: '330100200501011234',
-  checkGate: '1',
+  seatType: '新空调硬座',
   qrCodeId: 'https://www.steveling.cn/',
+  isChild: false,
   isStudent: false,
   isDiscount: true,
 })
