@@ -345,45 +345,47 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
 
   // 仅供报销使用
   ctx.font = '32px SimSun'
-  drawCustomText(ctx, '仅供报销使用', leftOffset, 330)
+  drawCustomText(ctx, '仅供报销使用', leftOffset, 350)
 
   ctx.font = '40px FangSong'
 
   // 身份证号码和姓名
   const id = maskedId(props.ticketInfo.passengerId)
   const idWidth = getTextWidth(ctx, id)
-  drawCustomText(ctx, id, leftOffset, 370, -3)
+  drawCustomText(ctx, id, leftOffset, 390, -3)
   ctx.font = '36px SimSun'
-  drawCustomText(ctx, props.ticketInfo.passengerName, leftOffset + idWidth + 10 - 48, 370)
+  drawCustomText(ctx, props.ticketInfo.passengerName, leftOffset + idWidth + 10 - 48, 390)
 
   // 虚线框
-  const dashWidth = 440
+  const dashWidth = 500
   const dashHeight = 70
   const dashLeft = 108
   ctx.font = ' 27px FangSong'
   ctx.setLineDash([8, 2])
-  ctx.strokeRect(dashLeft, 380, dashWidth, dashHeight)
+  ctx.strokeRect(dashLeft, 400, dashWidth, dashHeight)
   ctx.setLineDash([])
   // ctx.fillText('买票请到12306 发货请到95306 中国铁路祝您旅途愉快', 50, 310);
-  const text1 = '报销凭证 遗失不补'
+  const text1 = '买票请到12306 发货请到95306'
   const text1Width = getTextWidth(ctx, text1)
-  const text2 = '退票改签时须交回车站'
+  const text2 = '中国铁路祝您旅途愉快'
   const text2Width = getTextWidth(ctx, text2)
-  drawCustomText(ctx, text1, dashLeft + dashWidth / 2 - text1Width / 2, 408)
-  drawCustomText(ctx, text2, dashLeft + dashWidth / 2 - text2Width / 2, 440)
+  drawCustomText(ctx, text1, dashLeft + dashWidth / 2 - text1Width / 2, 428)
+  drawCustomText(ctx, text2, dashLeft + dashWidth / 2 - text2Width / 2, 460)
 
   // 二维码，暂时使用 GitHub 链接，车票二维码貌似是一个加密串
-  const qrCodeText = 'https://github.com/FoskyM/train-ticket-generator'
-  const qrCodeWidth = 120
+  const qrCodeText = 'https://www.steveling.cn/'
+  const qrCodeWidth = 140
   const qrCodeOptions = {
     width: qrCodeWidth,
+    errorCorrectionLevel: 'H',
+    maskPattern: 5,
     margin: 0,
     color: {
       dark: '#000000b0', // 二维码颜色
       light: '#FFFFFF00', // 背景透明
     },
   }
-  QRCode.toDataURL(qrCodeText, qrCodeOptions, (err, url) => {
+  QRCode.toDataURL(qrCodeText, qrCodeOptions as any, (err, url) => {
     if (err) throw err
     const qrImage = new Image()
     qrImage.src = url
@@ -393,8 +395,9 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   })
 
   // 车票ID和售票点
-  ctx.font = ' 24px FangSong'
-  const bottomOffset = Math.floor(Math.random() * 25) + 10
+  ctx.font = ' 25px FangSong'
+  // const bottomOffset = Math.floor(Math.random() * 25) + 5
+  const bottomOffset = 25
   drawCustomText(ctx, props.ticketInfo.id + ' JM', leftOffset, canvasHeight - 50 + bottomOffset)
   // ctx.fillText(props.ticketInfo.ticketOffice, 300, canvasHeight - 28);
 

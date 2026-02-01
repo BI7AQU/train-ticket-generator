@@ -18,7 +18,7 @@ const tabs = ref([
   { label: '纸板票(1代纸板火车票)', key: 'ticket1g' },
 ])
 
-const activeTab = ref('')
+const activeTab = ref('receipt')
 
 const seatTypeList = ref(['商务座', '一等座', '二等座', '无座', '硬座', '硬卧', '软卧'])
 
@@ -68,22 +68,22 @@ const fieldInfo = ref<FieldInfoData>({
 })
 
 const ticketInfo = ref<TicketData>({
-  id: '32537301731021L088888',
-  redId: 'Z160L088888',
-  ticketOffice: '杭州东',
-  startStation: '杭州东',
-  endStation: '北京南',
-  trainNumber: 'G176',
-  date: '2024-10-21',
-  time: '18:57',
-  price: 623.0,
+  id: '26963310260808H006563',
+  redId: 'H006563',
+  ticketOffice: '益阳',
+  startStation: '益阳',
+  endStation: '长沙',
+  trainNumber: 'C8021',
+  date: '2020-08-07',
+  time: '09:48',
+  price: 28.0,
   seatType: '二等座',
-  seatCarriage: '08',
-  seatNumber: '08F',
-  passengerName: '傅四霁',
-  passengerId: '330102200401011234',
+  seatCarriage: '06',
+  seatNumber: '17C',
+  passengerName: '冷藏箱',
+  passengerId: '330100200501011234',
 
-  seatTypeCustom: '二等座始发改签',
+  seatTypeCustom: '二等座',
   checkGate: '18B',
   isStudent: false,
   isDiscount: true,
