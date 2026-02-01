@@ -10,6 +10,7 @@ import Footer from '@/components/common/Footer.vue'
 
 import TicketReceipt from '@/components/TicketReceipt.vue'
 import Receipt5g from '@/components/Receipt5g.vue'
+import Ticket from './components/Ticket.vue'
 
 const tabs = ref([
   { label: '蓝票（报销凭证）', key: 'receipt' },
@@ -18,8 +19,6 @@ const tabs = ref([
 ])
 
 const activeTab = ref('')
-
-const seatTypeList = ref(['商务座', '一等座', '二等座', '无座', '硬座', '硬卧', '软卧'])
 
 const fieldInfo = ref<FieldInfoData>({
   id: { label: '火车票 ID', type: 'text', colSpan: 2, onlyEnglishAndNumber: true, maxLength: 21 },
@@ -37,12 +36,7 @@ const fieldInfo = ref<FieldInfoData>({
   date: { label: '日期', type: 'date', colSpan: 1 },
   time: { label: '时间', type: 'time', colSpan: 1 },
   price: { label: '价格', type: 'float', colSpan: 1, maxValue: 50000 },
-  seatType: {
-    label: '座位类型',
-    type: 'select',
-    data: seatTypeList,
-    colSpan: 1,
-  },
+  seatType: { label: '席别', type: 'text', colSpan: 1, maxLength: 5, onlyChinese: true },
   seatCarriage: { label: '车厢号', type: 'number', colSpan: 1, maxValue: 99 },
   seatNumber: {
     label: '座位号',
@@ -57,26 +51,27 @@ const fieldInfo = ref<FieldInfoData>({
   checkGate: { label: '检票口', type: 'text', colSpan: 1, maxLength: 12 },
 
   qrCodeId: { label: '二维码内容', type: 'text', colSpan: 1, maxLength: 144 },
+
   isStudent: { label: '学生票', type: 'checkbox', colSpan: 1 },
   isDiscount: { label: '优惠票', type: 'checkbox', colSpan: 1 },
 })
 
 const ticketInfo = ref<TicketData>({
-  id: '26963310260808H006563',
-  redId: 'H006563',
-  ticketOffice: '益阳',
-  startStation: '益阳',
-  endStation: '长沙',
-  trainNumber: 'C8021',
-  date: '2020-08-07',
-  time: '09:48',
-  price: 28.0,
-  seatType: '二等座',
-  seatCarriage: '06',
-  seatNumber: '17C',
+  id: '21077000060721X073561',
+  redId: '01X073561',
+  ticketOffice: '武昌',
+  startStation: '东方红',
+  endStation: '卫星',
+  trainNumber: '6224',
+  date: '2025-07-23',
+  time: '06:50',
+  price: 11.5,
+  seatType: '新空调硬座',
+  seatCarriage: '01',
+  seatNumber: '058',
   passengerName: '冷藏箱',
   passengerId: '330100200501011234',
-  checkGate: '18B',
+  checkGate: '1',
   qrCodeId: 'https://www.steveling.cn/',
   isStudent: false,
   isDiscount: true,
@@ -109,6 +104,7 @@ watch(
         <div class="ticket-container py-4">
           <TicketReceipt :ticketInfo="ticketInfo" v-if="activeTab == 'receipt'" />
           <Receipt5g :ticketInfo="ticketInfo" v-if="activeTab == 'receipt5g'" />
+          <Ticket :ticketInfo="ticketInfo" v-if="activeTab == 'ticket'" />
           <template v-else-if="activeTab == ''">
             <h2 class="text-2xl">请选择车票类型</h2>
           </template>

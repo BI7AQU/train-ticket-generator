@@ -187,6 +187,24 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
 
   ctx.fillStyle = '#000'
 
+  //票面信息绘制
+  
+  // 左上角红色 ID
+  ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
+  ctx.font = ' 42px Arial'
+  ctx.fillText(props.ticketInfo.redId, 80, 65)
+
+  // 检票口
+  ctx.font = '32px SimSun'
+  if (props.ticketInfo.checkGate !== '') {
+    const checkGateText = '检票:' + props.ticketInfo.checkGate
+    const checkGateWidth = getTextWidth(ctx, checkGateText)
+    drawCustomText(ctx, checkGateText, canvasWidth - checkGateWidth - 100, 65)
+    topOffset = 45
+  } else {
+    topOffset = 35
+  }
+
   // 始发站、车次、目的地
   const startStation = props.ticketInfo.startStation
   const endStation = props.ticketInfo.endStation
@@ -220,12 +238,12 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   ctx.font = '42px Simsun'
   const trainNumber = props.ticketInfo.trainNumber
   const trainNumberWidth = getTextWidth(ctx, trainNumber) + 2 * trainNumber.length
-  drawCustomText(ctx, trainNumber, canvasWidth / 2 - trainNumberWidth / 2, topOffset + 75, 2)
-  const arrowStartX = canvasWidth / 2 - 60
-  const arrowStartY = topOffset + 82
-  const arrowLength = 120
+  drawCustomText(ctx, trainNumber, canvasWidth / 2 - trainNumberWidth / 2, topOffset + 85, 2)
+  const arrowStartX = canvasWidth / 2 - 63
+  const arrowStartY = topOffset + 100
+  const arrowLength = 126
   const arrowHeight = 5
-  const arrowWidth = 20
+  const arrowWidth = 15
 
   ctx.beginPath()
   ctx.moveTo(arrowStartX, arrowStartY)
@@ -233,9 +251,9 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   ctx.lineTo(arrowStartX + arrowLength - arrowWidth, arrowStartY - arrowHeight)
   ctx.stroke()
 
-  ctx.font = '28px Simsun'
-  drawCustomText(ctx, '站', 270, topOffset + 75)
-  drawCustomText(ctx, '站', canvasWidth - 160, topOffset + 75)
+  ctx.font = '30px Simsun'
+  drawCustomText(ctx, '站', 270, topOffset + 76)
+  drawCustomText(ctx, '站', canvasWidth - 160, topOffset + 76)
 
   // 日期、时间
   ctx.font = '40px Simhei'
@@ -244,24 +262,29 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   const month =
     date.getMonth() + 1 > 9 ? (date.getMonth() + 1).toString() : '0' + (date.getMonth() + 1)
   const day = date.getDate() > 9 ? date.getDate().toString() : '0' + date.getDate()
-  drawCustomText(ctx, year, leftOffset + 10, topOffset + 170, -2)
-  drawCustomText(ctx, month, leftOffset + 118, topOffset + 170, -2)
-  drawCustomText(ctx, day, leftOffset + 180, topOffset + 170, -2)
-  drawCustomText(ctx, props.ticketInfo.time, leftOffset + 248, topOffset + 170, -2)
+  drawCustomText(ctx, year, leftOffset + 10, topOffset + 164, -2)
+  drawCustomText(ctx, month, leftOffset + 118, topOffset + 164, -2)
+  drawCustomText(ctx, day, leftOffset + 180, topOffset + 164, -2)
+  drawCustomText(ctx, props.ticketInfo.time, leftOffset + 248, topOffset + 164, -2)
 
   // 座位号、车厢号、座位类型
   const seatCarriage = props.ticketInfo.seatCarriage.toString().padStart(2, '0')
   let seatNumber = props.ticketInfo.seatNumber.toString().padStart(3, '0')
-  drawCustomText(ctx, seatCarriage, canvasWidth / 2 + 120, topOffset + 170, -2)
+  drawCustomText(ctx, seatCarriage, canvasWidth / 2 + 120, topOffset + 164, -2)
+
   // 如果最后一位是字母，进行处理
-  if (isNaN(parseInt(seatNumber.slice(-1)))) {
+  if (seatNumber === '000') {
+  ctx.font = '32px FangSong GB2312'
+  drawCustomText(ctx, '无座', canvasWidth / 2 + 182, topOffset + 161, -3)
+  }
+  else if (isNaN(parseInt(seatNumber.slice(-1)))) {
     const seatNumberLast = seatNumber.slice(-1)
     seatNumber = seatNumber.slice(0, -1)
-    drawCustomText(ctx, seatNumber, canvasWidth / 2 + 182, topOffset + 170, -3)
+    drawCustomText(ctx, seatNumber, canvasWidth / 2 + 182, topOffset + 164, -3)
     ctx.font = '32px SimSun'
-    drawCustomText(ctx, seatNumberLast, canvasWidth / 2 + 182 + 38, topOffset + 167, -3)
+    drawCustomText(ctx, seatNumberLast, canvasWidth / 2 + 182 + 38, topOffset + 164, -3)
   } else {
-    drawCustomText(ctx, seatNumber, canvasWidth / 2 + 182, topOffset + 170, -3)
+    drawCustomText(ctx, seatNumber, canvasWidth / 2 + 182, topOffset + 164, -3)
   }
 
   ctx.font = '28px SimSun'
@@ -271,16 +294,18 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   drawCustomText(ctx, seatType, 650 - seatTypeWidth / 2, topOffset + 210)
 
   ctx.font = '21px FangSong'
-  drawCustomText(ctx, '年', leftOffset + 90, topOffset + 164)
-  drawCustomText(ctx, '月', leftOffset + 155, topOffset + 164)
-  drawCustomText(ctx, '日', leftOffset + 218, topOffset + 164)
-  drawCustomText(ctx, '开', leftOffset + 345, topOffset + 164)
-  drawCustomText(ctx, '车', leftOffset + 515, topOffset + 164)
-  drawCustomText(ctx, '号', leftOffset + 594, topOffset + 164)
+  drawCustomText(ctx, '年', leftOffset + 90, topOffset + 158)
+  drawCustomText(ctx, '月', leftOffset + 155, topOffset + 158)
+  drawCustomText(ctx, '日', leftOffset + 218, topOffset + 158)
+  drawCustomText(ctx, '开', leftOffset + 345, topOffset + 158)
+  drawCustomText(ctx, '车', leftOffset + 515, topOffset + 158)
+  if(seatNumber !== '000'){
+  drawCustomText(ctx, '号', leftOffset + 594, topOffset + 158)
+  }
 
   // 票价、额外信息
   ctx.font = '40px SimSun'
-  drawCustomText(ctx, '￥', leftOffset + 15, topOffset + 215)
+  drawCustomText(ctx, '¥', leftOffset + 15, topOffset + 215)
   ctx.font = '40px Simhei'
   const price = (props.ticketInfo.price || 0).toFixed(1).toString()
   const priceWidth = getTextWidth(ctx, price)
@@ -316,13 +341,14 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
 
   ctx.font = '32px SimSun'
   // 仅供纪念使用
-  ctx.fillText('仅供纪念使用', leftOffset, 300);
+  drawCustomText(ctx, '仅供纪念使用', 340, 310)
 
   // 仅供报销使用
   drawCustomText(ctx, '仅供报销使用', leftOffset, 350)
 
   ctx.font = '40px FangSong'
 
+  ctx.font = '40px Maxim Sans Regular'
   // 身份证号码和姓名
   const id = maskedId(props.ticketInfo.passengerId)
   const idWidth = getTextWidth(ctx, id)
@@ -374,10 +400,6 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   drawCustomText(ctx, props.ticketInfo.id + ' JM', leftOffset, canvasHeight - 50 + bottomOffset)
   // ctx.fillText(props.ticketInfo.ticketOffice, 300, canvasHeight - 28);
 
-  // 左上角红色 ID
-  ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
-  ctx.font = ' 42px Arial'
-  ctx.fillText(props.ticketInfo.redId, 80, 65)
 }
 
 const drawTicketBack = () => {
