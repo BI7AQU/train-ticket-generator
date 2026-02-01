@@ -6,19 +6,18 @@ import type { FieldInfoData, TicketData } from '@/types'
 import DynamicForm from '@/components/common/DynamicForm.vue'
 import Tabs from '@/components/common/Tabs.vue'
 import InfoHead from '@/components/common/InfoHead.vue'
+import Footer from '@/components/common/Footer.vue'
 
 import TicketReceipt from '@/components/TicketReceipt.vue'
+import Receipt5g from '@/components/Receipt5g.vue'
 
 const tabs = ref([
-  { label: '蓝票(报销凭证)', key: 'receipt' },
-  { label: '蓝票(5代磁介质实名车票)', key: 'ticket5g' },
-  { label: '蓝票(4代磁介质非实名车票)', key: 'ticket4g' },
-  { label: '红票(3代软质车票)', key: 'ticket3g' },
-  { label: '红票(2代软质一维码车票)', key: 'ticket2g' },
-  { label: '纸板票(1代纸板火车票)', key: 'ticket1g' },
+  { label: '蓝票（报销凭证）', key: 'receipt' },
+  { label: '蓝票（5代磁介质实名车票）', key: 'receipt5g' },
+  { label: '红票（3代软质车票）', key: 'ticket' },
 ])
 
-const activeTab = ref('receipt')
+const activeTab = ref('')
 
 const seatTypeList = ref(['商务座', '一等座', '二等座', '无座', '硬座', '硬卧', '软卧'])
 
@@ -55,14 +54,9 @@ const fieldInfo = ref<FieldInfoData>({
   passengerName: { label: '乘客姓名', type: 'text', colSpan: 1, maxLength: 12, onlyChinese: true },
   passengerId: { label: '身份证号', type: 'text', colSpan: 1, maxLength: 18 },
 
-  seatTypeCustom: {
-    label: '自定义座位类型',
-    type: 'text',
-    colSpan: 1,
-    maxLength: 12,
-    onlyChinese: true,
-  },
   checkGate: { label: '检票口', type: 'text', colSpan: 1, maxLength: 12 },
+
+  qrCodeId: { label: '二维码内容', type: 'text', colSpan: 1, maxLength: 144 },
   isStudent: { label: '学生票', type: 'checkbox', colSpan: 1 },
   isDiscount: { label: '优惠票', type: 'checkbox', colSpan: 1 },
 })
@@ -82,9 +76,8 @@ const ticketInfo = ref<TicketData>({
   seatNumber: '17C',
   passengerName: '冷藏箱',
   passengerId: '330100200501011234',
-
-  seatTypeCustom: '二等座',
   checkGate: '18B',
+  qrCodeId: 'https://www.steveling.cn/',
   isStudent: false,
   isDiscount: true,
 })
@@ -115,15 +108,17 @@ watch(
       <div>
         <div class="ticket-container py-4">
           <TicketReceipt :ticketInfo="ticketInfo" v-if="activeTab == 'receipt'" />
+          <Receipt5g :ticketInfo="ticketInfo" v-if="activeTab == 'receipt5g'" />
           <template v-else-if="activeTab == ''">
             <h2 class="text-2xl">请选择车票类型</h2>
           </template>
-          <template v-else>
-            <h2 class="text-2xl">其它车票仍在开发中，敬请期待！</h2>
+          <template v-else-if="activeTab == 'ticket'">
+            <h2 class="text-2xl">正在开发中，敬请期待！</h2>
           </template>
         </div>
-      </div>
+      </div> 
     </div>
+    <Footer />
   </div>
 </template>
 
