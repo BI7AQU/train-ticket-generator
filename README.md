@@ -1,7 +1,7 @@
 # train-ticket-generator
 
 ## 介绍
-火车票生成器
+纪念车票生成器
 
 本仓库Fork自 [FoskyM/train-ticket-generator](https://github.com/FoskyM/train-ticket-generator)
 
