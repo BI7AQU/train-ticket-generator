@@ -213,16 +213,17 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
     ctx.beginPath()
     ctx.arc(canvasWidth / 2 - studentWidth / 2 - 60, topOffset + 188, 17, 0, 2 * Math.PI)
     ctx.stroke()
-
-    const discountText = '惠'
-    const discountWidth = getTextWidth(ctx, discountText)
-    drawCustomText(ctx, discountText, canvasWidth / 2 - discountWidth - 10, topOffset + 200)
+  } 
+  if (props.ticketInfo.isChild) {
+    const childText = '孩'
+    const childWidth = getTextWidth(ctx, childText)
+    drawCustomText(ctx, childText, canvasWidth / 2 - childWidth - 60, topOffset + 200)
 
     ctx.beginPath()
-    ctx.arc(canvasWidth / 2 - discountWidth / 2 - 10, topOffset + 188, 17, 0, 2 * Math.PI)
+    ctx.arc(canvasWidth / 2 - childWidth / 2 - 60, topOffset + 188, 17, 0, 2 * Math.PI)
     ctx.stroke()
   } 
-  else if (props.ticketInfo.isDiscount) {
+  if (props.ticketInfo.isDiscount) {
     const discountText = '惠'
     const discountWidth = getTextWidth(ctx, discountText)
     drawCustomText(ctx, discountText, canvasWidth / 2 - discountWidth - 20, topOffset + 200)

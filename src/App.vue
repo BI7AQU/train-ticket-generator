@@ -8,7 +8,7 @@ import Tabs from '@/components/common/Tabs.vue'
 import InfoHead from '@/components/common/InfoHead.vue'
 import Footer from '@/components/common/Footer.vue'
 
-import TicketReceipt from '@/components/TicketReceipt.vue'
+import Receipt from '@/components/Receipt.vue'
 import Receipt5g from '@/components/Receipt5g.vue'
 import Ticket from './components/Ticket.vue'
 
@@ -48,6 +48,7 @@ const fieldInfo = ref<FieldInfoData>({
   passengerName: { label: '姓名', type: 'text', colSpan: 1, maxLength: 12, onlyChinese: true },
   passengerId: { label: '身份证号', type: 'text', colSpan: 1, maxLength: 18 },
   seatType: { label: '席别', type: 'text', colSpan: 1, maxLength: 5, onlyChinese: true },
+  berth: { label: '铺位', type: 'text', colSpan: 1, maxLength: 3, onlyChinese: true },
   qrCodeId: { label: '二维码内容', type: 'text', colSpan: 1, maxLength: 144 },
   isChild: { label: '儿童票', type: 'checkbox', colSpan: 1 },
   isStudent: { label: '学生票', type: 'checkbox', colSpan: 1 },
@@ -70,6 +71,7 @@ const ticketInfo = ref<TicketData>({
   passengerName: '冷藏箱',
   passengerId: '330100200501011234',
   seatType: '新空调硬座',
+  berth: '',
   qrCodeId: 'https://www.steveling.cn/',
   isChild: false,
   isStudent: false,
@@ -82,8 +84,23 @@ watch(
     if (value) {
       ticketInfo.value.isDiscount = true
       fieldInfo.value.isDiscount.disabled = true
+      ticketInfo.value.isChild = false
+      fieldInfo.value.isChild.disabled = true
     } else {
       fieldInfo.value.isDiscount.disabled = false
+      fieldInfo.value.isChild.disabled = false
+    }
+  },
+  { deep: true },
+)
+watch(
+  () => ticketInfo.value.isChild,
+  (value) => {
+    if (value) {
+      ticketInfo.value.isStudent = false
+      fieldInfo.value.isStudent.disabled = true
+    } else {
+      fieldInfo.value.isStudent.disabled = false
     }
   },
   { deep: true },
@@ -98,10 +115,10 @@ watch(
       <DynamicForm class="mb-4" v-model="ticketInfo" v-model:fields="fieldInfo" />
 
       <Tabs class="mb-4 text-sm" v-model="activeTab" :tabs="tabs" />
-
+      
       <div>
         <div class="ticket-container py-4">
-          <TicketReceipt :ticketInfo="ticketInfo" v-if="activeTab == 'receipt'" />
+          <Receipt :ticketInfo="ticketInfo" v-if="activeTab == 'receipt'" />
           <Receipt5g :ticketInfo="ticketInfo" v-if="activeTab == 'receipt5g'" />
           <Ticket :ticketInfo="ticketInfo" v-if="activeTab == 'ticket'" />
           <template v-else-if="activeTab == ''">
