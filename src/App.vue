@@ -72,7 +72,7 @@ const ticketInfo = ref<TicketData>({
   passengerId: '330100200501011234',
   seatType: '新空调硬座',
   berth: '',
-  qrCodeId: 'https://www.steveling.cn/',
+  qrCodeId: 'https://github.com/BI7AQU/train-ticket-generator',
   isChild: false,
   isStudent: false,
   isDiscount: true,
