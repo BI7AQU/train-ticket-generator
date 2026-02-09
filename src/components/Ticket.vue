@@ -175,6 +175,8 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
     drawCustomText(ctx, seatNumber, canvasWidth / 2 + 172, topOffset + 170, -3)
     ctx.font = '32px Times New Roman'
     drawCustomText(ctx, seatNumberLast, canvasWidth / 2 + 172 + 40, topOffset + 167, -3)
+    ctx.font = '22px SimSun'
+    drawCustomText(ctx, '号', leftOffset + 595, topOffset + 165)
   } 
   else if((seatNumber !== '000')&&(bedBerth !== '')){
     drawCustomText(ctx, seatNumber, canvasWidth / 2 + 172, topOffset + 170, -3)
@@ -184,6 +186,8 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   else {
     // ctx.font = '32px Bold SimSun'
     drawCustomText(ctx, seatNumber, canvasWidth / 2 + 172, topOffset + 170, -3)
+    ctx.font = '22px SimSun'
+    drawCustomText(ctx, '号', leftOffset + 595, topOffset + 165)
   }
 
   ctx.font = '30px Bold SimSun'
@@ -197,9 +201,6 @@ const drawTicketDetails = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
   drawCustomText(ctx, '日', leftOffset + 217, topOffset + 165)
   drawCustomText(ctx, '开', leftOffset + 335, topOffset + 165)
   drawCustomText(ctx, '车', leftOffset + 505, topOffset + 165)
-  if(/^[a-zA-Z]$/.test(props.ticketInfo.seatNumber.slice(-1)) || (props.ticketInfo.berth == '')){
-  drawCustomText(ctx, '号', leftOffset + 595, topOffset + 165)
-  }
 
   // 票价、额外信息
   ctx.font = '36px SimSun'
